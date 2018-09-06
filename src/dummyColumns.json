@@ -1,0 +1,14 @@
+[
+    { "key": "Product Code", "name": "Product Code" },
+    { "key": "Caller Type", "name": "Caller Type" },
+    { "key": "A", "name": "A" },
+    { "key": "B", "name": "B" },
+    { "key": "BEH", "name": "BEH" },
+    { "key": "BLL", "name": "BLL" },
+    { "key": "C", "name": "C" },
+    { "key": "COV", "name": "COV" },
+    { "key": "CS1", "name": "CS1" },
+    { "key": "CS2", "name": "CS2" },
+    { "key": "D", "name": "D" },
+    { "key": "DN1", "name": "DN1" }
+]
