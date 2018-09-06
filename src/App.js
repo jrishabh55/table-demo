@@ -60,16 +60,9 @@ class App extends Component {
 
   scrollLeft = () => {
     const item = this.tableRef.current;
-    const start = item.scrollLeft;
-    const final = item.scrollLeft + item.offsetWidth;
-    const increment = 2;
-
-    for (let i = start; i <= final; i+=increment) {
-      item.scrollLeft += increment;
-    }
-
-    // this.tableRef.current.scrollLeft += ;
+    item.scrollLeft += item.offsetWidth;
   }
+  
   render() {
     const { classes } = this.props;
     return (
