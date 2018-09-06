@@ -19,13 +19,21 @@ const styles = theme => ({
   },
   cell: {
     minWidth: 70
+  },
+  active: {
+    minWidth: 4,
+    backgroundColor: 'green',
+  },
+  inactive: {
+    minWidth: 4,
+    backgroundColor: 'blue',
   }
 });
 
 function SimpleTable(props) {
   const { classes, title, rows } = props;
 
-  const length = Object.keys(rows[0]).length;
+  const length = Object.keys(rows[0]).length + 1;
 
   return (
     <Table className={classes.table}>
@@ -36,9 +44,10 @@ function SimpleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(({TYPE, ...row}, i) => {
+          {rows.map(({TYPE, active, ...row}, i) => {
             return (
               <TableRow key={i}>
+              <TableCell padding="none" className={active ? classes.active : classes.inactive} />
                 {Object.keys(row).map((key, i) => <TableCell className={classes.cell} key={i}>{row[key]}</TableCell>)}
               </TableRow>
             );

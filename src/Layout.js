@@ -22,7 +22,7 @@ function AutoGrid(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={24}>
+      <Grid container spacing={24} direction="row">
         {children}
       </Grid>
     </div>
