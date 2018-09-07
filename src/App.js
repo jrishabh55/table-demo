@@ -29,7 +29,7 @@ import { Object } from 'core-js';
 const styles = theme => ({
   root: {
     position: "relative",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
     padding: 3
   },
   table: {
@@ -42,7 +42,12 @@ const styles = theme => ({
   arrow: {
     cursor: "pointer",
     zIndex: 10,
-    margin: 20
+    margin: 20,
+    backgroundColor: 'blue',
+    borderRadius: '50%',
+    display: 'flex',
+    alignContent: 'center',
+    color: 'white'
   },
   drawerPaper: {
     position: "relative",
@@ -53,7 +58,7 @@ const styles = theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     position: "absolute",
-    top: 35,
+    top: theme.spacing.unit + 8,
     right: 0,
     width: "100%"
   },
@@ -100,7 +105,7 @@ const styles = theme => ({
     overflowX: 'hidden'
   },
   expantionSummeryRoot: {
-    paddingBottom: 10
+    paddingBottom: 0
   }
 });
 
@@ -226,7 +231,7 @@ class App extends Component {
     return (
       <Layout>
           {this.drawer()}
-        <Grid item xs={sidebar ? 8 : 10} offset={sidebar ? 0 : 4} style={{ position: 'relative' }}>
+        <Grid item xs={sidebar ? 8 : 10} offset={sidebar ? 0 : 4} style={{ position: 'relative', marginLeft: 'auto' }}>
           <div className={classes.arrows}>
             <div className={classes.arrow}>
               <ChevronLeft onClick={this.scrollLeft} />
@@ -237,7 +242,7 @@ class App extends Component {
           </div>
           <div className={classes.root}>
             <Paper style={{ maxWidth: '100%' }}>
-              <div style={{ overflowX: 'hidden', padding: 20 }} ref={this.tableRef}>
+              <div style={{ overflowX: 'hidden', padding: '0 20px 3px 20px' }} ref={this.tableRef}>
                 <Table>
                     <TableBody>
                       <TableRow>
@@ -258,7 +263,7 @@ class App extends Component {
                   <Typography>{title}<br /><small>Sub Heading</small></Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails classes={{ root: classes.expantionRoot } }>
-                  <div style={{ overflowX: 'hidden', padding: 20 }} ref={this.tables[title]}>
+                  <div style={{ overflowX: 'hidden', padding: '0 20px 3px 20px' }} ref={this.tables[title]}>
                     <RowsTable rows={this.rows[title]} title={title} />
                   </div>
                 </ExpansionPanelDetails>
