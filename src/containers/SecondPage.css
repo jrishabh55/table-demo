@@ -1,0 +1,50 @@
+.grid-paper {
+    top: 40px;
+    width: 60%;
+    height: 60%;
+    min-height: 35em;
+    left: 20%;
+    position: absolute;
+}
+
+.filter-paper {
+    top: 80px;
+    width: 250px;
+    height: 60%;
+    min-height: 35em;
+    left: 42px;
+    position: absolute;
+}
+
+.App-header {
+    background-color: #236a9c;
+    height: 60px;
+    color: white;
+}
+
+.filter-button {
+    width: 120px;
+    font-size: 10px !important;
+    border-radius: 0px !important;  
+    background-color: #2196f3 !important;
+    color: white !important;
+    transform: rotate(-90deg);
+    position: absolute;
+    top: 100px;
+    left: 0;
+}
+
+.filter-button-shift {
+    left: 250px !important;
+}
+
+.vdn-table-paper {
+    margin: -36px auto;
+    width: 70%;
+    min-height: 37em;
+    height: 100%;
+}
+
+.shift-right {
+    margin-left: 28% !important;
+}

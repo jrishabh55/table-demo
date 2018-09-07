@@ -1,18 +1,49 @@
 {
-  "name": "table",
+  "name": "kavya-dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.0.2",
+    "@material-ui/core": "^1.5.1",
     "@material-ui/icons": "^3.0.1",
+    "faker": "^4.1.0",
+    "immutable": "^3.8.2",
     "react": "^16.4.2",
+    "react-bootstrap": "^0.32.3",
+    "react-data-grid": "^4.0.8",
+    "react-data-grid-addons": "^4.0.8",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.5"
+    "react-redux": "^5.0.5",
+    "react-scripts": "1.1.4",
+    "redux": "^3.7.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 0,
+        "lines": 75,
+        "statements": -100
+      }
+    },
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/index.js",
+      "!**/registerServiceWorker.js",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/build/**"
+    ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1"
   }
 }
