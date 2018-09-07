@@ -33,7 +33,8 @@ const styles = theme => ({
     padding: 3
   },
   table: {
-    minWidth: 700
+    minWidth: 700,
+    padding: 2
   },
   cell: {
     minWidth: 70,
@@ -101,6 +102,7 @@ const styles = theme => ({
   expantionRoot: {
     paddingLeft: 0,
     paddingBottom: 0,
+    paddingRight: 0,
     borderBottomWidth: 0,
     overflowX: 'hidden'
   },
@@ -116,9 +118,7 @@ class App extends Component {
   tables = {};
 
   state = {
-    open: true,
-    anchor: "left",
-    sidebar: true
+    sidebar: false
   };
 
   componentWillMount() {
@@ -243,7 +243,7 @@ class App extends Component {
           <div className={classes.root}>
             <Paper style={{ maxWidth: '100%' }}>
               <div style={{ overflowX: 'hidden', padding: '0 20px 3px 20px' }} ref={this.tableRef}>
-                <Table>
+                <Table className={classes.table}>
                     <TableBody>
                       <TableRow>
                         <TableCell padding="none" style={{ minWidth: 4 }} />
