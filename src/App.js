@@ -29,7 +29,7 @@ import { Object } from 'core-js';
 const styles = theme => ({
   root: {
     position: "relative",
-    marginTop: theme.spacing.unit,
+    marginTop: -2,
     padding: 3
   },
   table: {
