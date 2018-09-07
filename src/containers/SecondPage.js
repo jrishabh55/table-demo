@@ -19,8 +19,8 @@ const styles = theme => ({
     padding: 2
   },
   cell: {
-    minWidth: 70,
-    maxWidth: 70
+    minWidth: 80,
+    maxWidth: 80
   },
   arrow: {
     cursor: "pointer",
