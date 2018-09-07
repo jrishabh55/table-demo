@@ -18,15 +18,16 @@ const styles = theme => ({
     padding: 2
   },
   cell: {
-    minWidth: 70
+    minWidth: 70,
+    maxWidth: 70
   },
   active: {
     minWidth: 4,
-    backgroundColor: 'green',
+    backgroundColor: "green"
   },
   inactive: {
     minWidth: 4,
-    backgroundColor: 'blue',
+    backgroundColor: "blue"
   }
 });
 
@@ -37,23 +38,16 @@ function SimpleTable(props) {
 
   return (
     <Table className={classes.table}>
-    <Paper className={classes.root}>
-        <TableHead>
-          <TableRow>
-            <TableCell colSpan={length}><strong>{title}</strong></TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
           {rows.map(({TYPE, active, ...row}, i) => {
             return (
               <TableRow key={i}>
               <TableCell padding="none" className={active ? classes.active : classes.inactive} />
-                {Object.keys(row).map((key, i) => <TableCell className={classes.cell} key={i}>{row[key]}</TableCell>)}
+                {Object.keys(row).map((key, i) => <TableCell padding="checkbox" className={classes.cell} key={i}>{row[key]}</TableCell>)}
               </TableRow>
             );
           })}
         </TableBody>
-    </Paper>
     </Table>
   );
 }

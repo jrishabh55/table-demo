@@ -4,8 +4,17 @@ import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Paper, Drawer, Grid } from '@material-ui/core';
-import { ChevronRight, ChevronLeft } from '@material-ui/icons';
+import { Paper, Card, Grid, CardHeader, CardContent, TextField, Divider, MenuItem, TableBody } from '@material-ui/core';
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+import { ChevronRight, ChevronLeft, Cancel, FilterList, Refresh, Search } from '@material-ui/icons';
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import RowsTable from './Table';
 
@@ -21,47 +30,77 @@ const styles = theme => ({
   root: {
     position: "relative",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto",
     padding: 3
   },
   table: {
     minWidth: 700
   },
   cell: {
-    minWidth: 70
+    minWidth: 70,
+    maxWidth: 70
   },
   arrow: {
     cursor: "pointer",
     zIndex: 10,
-    margin: 20,
+    margin: 20
   },
   drawerPaper: {
     position: "relative",
     width: drawerWidth
   },
   arrows: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    position: 'absolute',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    position: "absolute",
     top: 35,
     right: 0,
-    width: '100%'
+    width: "100%"
   },
 
-  leftSideBar: {
-  },
-  leftSideBarButton: {
-  },
-  sideBarButton: {    
-    backgroundColor: 'blue',
-    color: 'white',
-    writingMode: 'vertical-rl',
-    textOrientation: "mixed",
-    cursor: 'pointer',
+  leftSideBar: {},
+  leftSideBarButton: {},
+  sideBarButton: {
+    display: "block",
+    position: 'absolute',
+    width: 120,
+    backgroundColor: "blue",
+    color: "white",
+    transform: "rotate(270deg)",
+    transformOrigin: "left top 0",
+    cursor: "pointer",
     padding: 5,
     borderRadius: 3,
-    marginTop: 20
+    marginTop: 180
+  },
+
+  leftSidebarCardTitle: {
+    color: "blue"
+  },
+  leftSidebarCardRoot: {
+    borderTop: "2px solid blue"
+  },
+  leftSidebarCardActions: {
+    color: "blue",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  withoutLabel: {
+    marginTop: theme.spacing.unit * 3
+  },
+  textField: {
+    flexBasis: 200
+  },
+  expantionRoot: {
+    paddingLeft: 0,
+    paddingBottom: 0,
+    borderBottomWidth: 0,
+    overflowX: 'hidden'
+  },
+  expantionSummeryRoot: {
+    paddingBottom: 10
   }
 });
 
@@ -69,11 +108,12 @@ const drawerWidth = 240;
 
 class App extends Component {
   tableRef = React.createRef();
+  tables = {};
 
   state = {
     open: true,
     anchor: "left",
-    sidebar: false
+    sidebar: true
   };
 
   componentWillMount() {
@@ -85,20 +125,31 @@ class App extends Component {
       }
       return obj;
     }, {});
+
+    Object.keys(this.rows).forEach(title => {
+      this.tables[title] = React.createRef();
+    });
   }
 
   scrollRight = () => {
     const item = this.tableRef.current;
     item.scrollLeft += item.offsetWidth;
+    Object.keys(this.tables).forEach(key => {
+      const ref = this.tables[key].current;
+      ref.scrollLeft += ref.offsetWidth;
+    });
   };
 
   scrollLeft = () => {
     const item = this.tableRef.current;
     item.scrollLeft -= item.offsetWidth;
+    Object.keys(this.tables).forEach(key => {
+      const ref = this.tables[key].current;
+      ref.scrollLeft -= ref.offsetWidth;
+    });
   };
 
   toggleSideBar = () => {
-    console.log("called");
     this.setState({ sidebar: !this.state.sidebar })
   }
 
@@ -106,10 +157,10 @@ class App extends Component {
     const { classes } = this.props;
     const { sidebar } = this.state;
 
-    return <Grid item xs={3} style={{
+    return <Grid item xs={4} style={{
         position: sidebar ? 'static' : 'absolute',
         top: 100,
-        left: -3
+        left: 10
     }}>
       <div style={{
         display: 'flex',
@@ -117,12 +168,52 @@ class App extends Component {
         height: 600,
         marginTop: 100,
       }}>
-        <Paper style={{ height: '100%', flexGrow: 1, display: sidebar ? 'block' : 'none' }}>
-          This is work
-        </Paper>
+        <Card style={{ height: '100%', maxWidth: '90%', flexGrow: 1, display: sidebar ? 'block' : 'none' }}>
+          <CardHeader
+            title="Filters"
+            classes={{ title: classes.leftSidebarCardTitle, root: classes.leftSidebarCardRoot, action: classes.leftSidebarCardActions }}
+            action={<React.Fragment>
+              <Refresh />
+              <Cancel />
+            </React.Fragment>}
+          />
+          <Divider />
+          <CardContent>
+            <TextField
+              id="name"
+              label="Search"
+              margin="normal"
+              style={{ width: '100%' }}
+              InputProps={{
+                startAdornment: <InputAdornment position="start"><Search /></InputAdornment>
+              }}
+            />
+
+            <TextField
+              select
+              label="Sort"
+              margin="normal"
+              style={{ width: '100%'}}
+            >
+              {['Sample', 'Sample 2'].map(option => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            <TextField
+              id="name"
+              label="View Rolling Tag"
+              margin="normal"
+              style={{ width: '100%' }}
+            />
+
+          </CardContent>
+        </Card>
         <div className={classes.leftSideBarButton}>
           <span className={classes.sideBarButton} onClick={this.toggleSideBar}>
-            Filters
+            { sidebar ? 'Hide Filters' : 'Show Filters' } <FilterList />
           </span>
         </div>
       </div>
@@ -135,8 +226,8 @@ class App extends Component {
     return (
       <Layout>
           {this.drawer()}
-        <Grid item xs={sidebar ? 9 : 12} style={{ position: 'relative' }}>
-          <div class={classes.arrows}>
+        <Grid item xs={sidebar ? 8 : 10} offset={sidebar ? 0 : 4} style={{ position: 'relative' }}>
+          <div className={classes.arrows}>
             <div className={classes.arrow}>
               <ChevronLeft onClick={this.scrollLeft} />
             </div>
@@ -144,23 +235,34 @@ class App extends Component {
               <ChevronRight onClick={this.scrollRight} />
             </div>
           </div>
-          <div className={classes.root} ref={this.tableRef}>
-            <Table>
-              <Paper>
-                <TableHead>
-                  <TableRow>
-                    <TableCell padding="none" style={{ maxWidth: 20 }} />
-                    {columns.map(column => (
-                      <TableCell className={classes.cell} key={column.key}>
-                        {column.name}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-              </Paper>
-            </Table>
+          <div className={classes.root}>
+            <Paper style={{ maxWidth: '100%' }}>
+              <div style={{ overflowX: 'hidden', padding: 20 }} ref={this.tableRef}>
+                <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell padding="none" style={{ minWidth: 4 }} />
+                        {columns.map(column => (
+                          <TableCell padding="checkbox" className={classes.cell} key={column.key}>
+                            {column.name}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableBody>
+                </Table>
+              </div>
+            </Paper>
             {Object.keys(this.rows).map(title => (
-              <RowsTable rows={this.rows[title]} title={title} />
+              <ExpansionPanel defaultExpanded={true} key={title}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} classes={{ root: classes.expantionSummeryRoot}}>
+                  <Typography>{title}<br /><small>Sub Heading</small></Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails classes={{ root: classes.expantionRoot } }>
+                  <div style={{ overflowX: 'hidden', padding: 20 }} ref={this.tables[title]}>
+                    <RowsTable rows={this.rows[title]} title={title} />
+                  </div>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
             ))}
           </div>
         </Grid>
