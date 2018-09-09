@@ -18,8 +18,16 @@ const styles = theme => ({
     padding: 2
   },
   cell: {
+    width: 80,
     minWidth: 80,
     maxWidth: 80
+  },
+  fixedCell: {
+    position: 'absolute',
+    top: 'auto',
+  },
+  followingCells: {
+    marginLeft: 160,
   },
   active: {
     minWidth: 4,
@@ -50,7 +58,12 @@ function SimpleTable(props) {
             return (
               <TableRow key={i} className={classes.tableRow}>
               <TableCell padding="none" className={active ? classes.active : classes.inactive} />
-                {Object.keys(row).map((key, i) => <TableCell padding="checkbox" className={classes.cell} key={i}>{row[key]}</TableCell>)}
+                <div className={classes.fixedCell}>
+                  {Object.keys(row).splice(0, 2).map((key, i) => <TableCell padding="checkbox" className={classes.cell} key={i}>{row[key]}</TableCell>)}
+                </div>
+                <div className={classes.followingCells}>
+                  {Object.keys(row).splice(2).map((key, i) => <TableCell padding="checkbox" className={classes.cell} key={i}>{row[key]}</TableCell>)}
+                </div>
               </TableRow>
             );
           })}
